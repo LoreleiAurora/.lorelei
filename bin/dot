@@ -93,3 +93,5 @@ else
   git pull -q
   git submodule update -q --init --recursive
 fi
+
+ln -sf $HOME/.lorelei/.zshrc $HOME/.zshrc
