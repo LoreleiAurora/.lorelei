@@ -10,6 +10,9 @@ export MANPATH="/usr/local/man:$MANPATH"
 # Set ZSH theme
 ZSH_THEME="bullet-train"
 
+# plenv
+eval "$(plenv init -)"
+
 # rbenv
 eval "$(rbenv init -)"
 
