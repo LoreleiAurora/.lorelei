@@ -106,4 +106,10 @@ if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
   sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 fi
 
-mackup restore
+# Install ruby
+if [ ! -d "${HOME}/.rbenv/versions/2.5.0" ]
+then
+  echo -e "${BLUE}==>${NC} Installing runy 2.5.0"
+  rbenv install 2.5.0
+fi
+rbenv global 2.5.0

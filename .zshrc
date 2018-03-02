@@ -10,6 +10,9 @@ export MANPATH="/usr/local/man:$MANPATH"
 # Set ZSH theme
 ZSH_THEME="bullet-train"
 
+# rbenv
+eval "$(rbenv init -)"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
