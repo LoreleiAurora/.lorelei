@@ -60,7 +60,6 @@ else
     sudo chown -R "$USER:admin" "/usr/local/${DIR}"
   done
   unset DIR
-  sudo chown root:wheel /usr/local
   ln -sf /usr/local/Homebrew/bin/brew /usr/local/bin/brew
   git init -q
   git config remote.origin.url "https://github.com/Homebrew/brew"
