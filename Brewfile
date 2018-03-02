@@ -18,6 +18,7 @@ brew "moreutils"
 brew "nvm"
 brew "packer"
 brew "perl-build"
+brew "php", link: false
 brew "plenv"
 brew "pyenv"
 brew "ruby-build"
@@ -31,6 +32,13 @@ brew "winetricks"
 brew "youtube-dl"
 brew "zsh"
 brew "zsh-completions"
+brew "homebrew/php/brew-php-switcher"
+brew "homebrew/php/php53", link: false
+brew "homebrew/php/php54", link: false
+brew "homebrew/php/php55", link: false
+brew "homebrew/php/php56", link: false
+brew "homebrew/php/php70", link: false
+brew "homebrew/php/php71", link: false
 cask "1password"
 cask "adobe-acrobat-reader"
 cask "alfred"
