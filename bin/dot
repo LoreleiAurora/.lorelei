@@ -42,6 +42,10 @@ if /usr/bin/xcrun clang 2>&1 | grep license; then
   sudo xcodebuild -license &> /dev/null
 fi
 
+# Running system updates
+echo -e "${BLUE}==>${NC} Running system updates"
+softwareupdate -i -a
+
 # Install Homebrew
 export GIT_DIR="/usr/local/Homebrew/.git" GIT_WORK_TREE="/usr/local/Homebrew"
 if [ -d "/usr/local/Homebrew" ]
