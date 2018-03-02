@@ -112,6 +112,7 @@ then
   echo -e "${BLUE}==>${NC} Installing perl 5.27.9"
   plenv install 5.27.9 &> /dev/null
 fi
+echo -e "${BLUE}==>${NC} Setting default perl version to 5.27.9"
 plenv global  5.27.9
 
 # Install ruby
@@ -120,6 +121,7 @@ then
   echo -e "${BLUE}==>${NC} Installing ruby 2.5.0"
   rbenv install 2.5.0
 fi
+echo -e "${BLUE}==>${NC} Setting default ruby version to 2.5.0"
 rbenv global 2.5.0
 
 # Install python
@@ -133,6 +135,7 @@ then
   echo -e "${BLUE}==>${NC} Installing python 3.6.4"
   pyenv install 3.6.4
 fi
+echo -e "${BLUE}==>${NC} Setting default python version to 3.6.4"
 pyenv global 3.6.4
 
 # Install virtualenv
@@ -165,6 +168,7 @@ then
   echo -e "${BLUE}==>${NC} Installing nodejs stable"
   nvm install stable --latest-npm
 fi
+echo -e "${BLUE}==>${NC} Setting default node version to stable"
 nvm alias default stable
 
 # Install go
@@ -173,4 +177,5 @@ then
   echo -e "${BLUE}==>${NC} Installing python 1.10.0"
   goenv install 1.10.0
 fi
+echo -e "${BLUE}==>${NC} Setting default go version to 1.10.0"
 goenv global 1.10.0
