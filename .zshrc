@@ -23,6 +23,9 @@ eval "$(pyenv init -)"
 export NVM_DIR="$HOME/.nvm"
 . "/usr/local/opt/nvm/nvm.sh"
 
+# goenv
+eval "$(goenv init -)"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 

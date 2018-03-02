@@ -164,3 +164,11 @@ then
   nvm install stable --latest-npm
 fi
 nvm alias default stable
+
+# Install go
+if [ ! -d "${HOME}/.goenv/versions/1.10.0" ]
+then
+  echo -e "${BLUE}==>${NC} Installing python 1.10.0"
+  goenv install 1.10.0
+fi
+goenv global 1.10.0
