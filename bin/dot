@@ -87,6 +87,15 @@ popd
 # Updating homebrew packages.
 echo -e "${BLUE}==>${NC} Updating packages with homebrew"
 brew upgrade
+
+# Link dotfiles
+echo -e "${BLUE}==>${NC} Linking mackup config"
+ln -sf $DOTFILES/.mackup.cfg $HOME/.mackup.cfg
+
+# Running mackup restore
+echo -e "${BLUE}==>${NC} Running mackup restore"
+mackup restore
+
 # Setup ZSH
 CHECK_ZSH_IN_SHELLS=$(grep /usr/local/bin/zsh$ /etc/shells | wc -l)
 if [ ! $CHECK_ZSH_IN_SHELLS -ge 1 ]; then
@@ -100,4 +109,4 @@ if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
   chsh -s /usr/local/bin/zsh
 fi
 
-ln -sf $DOTFILES/.zshrc $HOME/.zshrc
+mackup restore
