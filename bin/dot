@@ -5,6 +5,9 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 SUDO_SET="false"
 
+# Dotfile paths.
+export DOTFILES=$HOME/.lorelei
+
 set_sudo() {
   if [[ SUDO_SET != "true" ]]; then
     # Ask for sudo
@@ -83,15 +86,15 @@ if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
 fi
 
 # Checkout or update dotfiles repo
-if [ ! -d "$HOME/.lorelei" ]
+if [ ! -d "$DOTFILES" ]
 then
   echo -e "${BLUE}==>${NC} Cheching out .lorelei"
-  git clone -q --recurse-submodules https://github.com/LoreleiAurora/.lorelei.git "$HOME/.lorelei"
+  git clone -q --recurse-submodules https://github.com/LoreleiAurora/.lorelei.git "$DOTFILES"
 else
   echo -e "${BLUE}==>${NC} Updating .lorelei"
-  cd "$HOME/.lorelei"
+  cd "$DOTFILES"
   git pull -q
   git submodule update -q --init --recursive
 fi
 
-ln -sf $HOME/.lorelei/.zshrc $HOME/.zshrc
+ln -sf $DOTFILES/.zshrc $HOME/.zshrc
