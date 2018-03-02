@@ -92,12 +92,9 @@ echo -e "${BLUE}==>${NC} Updating packages with homebrew"
 brew upgrade
 
 # Link dotfiles
-echo -e "${BLUE}==>${NC} Linking mackup config"
-ln -sf $DOTFILES/.mackup.cfg $HOME/.mackup.cfg
+echo -e "${BLUE}==>${NC} Linking dotfiles"
+ln -s $DOTFILES/.zshrc $HOME/.zshrc
 
-# Running mackup restore
-echo -e "${BLUE}==>${NC} Running mackup restore"
-mackup restore
 
 # Setup ZSH
 if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
