@@ -1,3 +1,83 @@
 #!/bin/bash
+set -e
 
-echo "SUCCESS"
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
+SUDO_SET="false"
+
+set_sudo() {
+  if [[ SUDO_SET != "true" ]]; then
+    # Ask for sudo
+    sudo -v
+    # Keep sudo updated
+    while true; do sudo -n true; sleep 60; kill -0 "$$" || exit; done 2>/dev/null &
+    SUDO_SET="true"
+  fi
+}
+
+# Install the Xcode Command Line Tools.
+DEVELOPER_DIR=$("xcode-select" -print-path 2>/dev/null || true)
+if [ -z "$DEVELOPER_DIR" ] || ! [ -f "$DEVELOPER_DIR/usr/bin/git" ] || ! [ -f "/usr/include/iconv.h" ]
+  then
+  set_sudo
+  echo -e "${BLUE}==>${NC} Installing Xcode"
+  CLT_PLACEHOLDER="/tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress"
+  sudo touch "$CLT_PLACEHOLDER"
+  CLT_PACKAGE=$(softwareupdate -l | grep -B 1 -E "Command Line (Developer|Tools)" | awk -F"*" '/^ +\*/ {print $2}' | sed 's/^ *//' | head -n1)
+  sudo softwareupdate -i "$CLT_PACKAGE" &> /dev/null
+  sudo rm -f "$CLT_PLACEHOLDER"
+  if ! [ -f "/usr/include/iconv.h" ]; then
+    echo
+    xcode-select --install &> /dev/null
+    read -p "Press any key when the installation has completed."
+  fi
+fi
+
+# Check if the Xcode license is agreed to and agree if not.
+if /usr/bin/xcrun clang 2>&1 | grep license; then
+  set_sudo
+  sudo xcodebuild -license &> /dev/null
+fi
+
+# Install Homebrew
+export GIT_DIR="/usr/local/Homebrew/.git" GIT_WORK_TREE="/usr/local/Homebrew"
+if [ -d "/usr/local/Homebrew" ]
+  then
+  git fetch -q
+else
+  set_sudo
+  echo -e "${BLUE}==>${NC} Installing Homebrew"
+  for DIR in Cellar Frameworks Homebrew bin etc include lib opt sbin share var
+    do
+    sudo mkdir -p "/usr/local/${DIR}"
+    sudo chown -R "$USER:admin" "/usr/local/${DIR}"
+  done
+  unset DIR
+  sudo chown root:wheel /usr/local
+  ln -sf /usr/local/Homebrew/bin/brew /usr/local/bin/brew
+  git init -q
+  git config remote.origin.url "https://github.com/Homebrew/brew"
+  git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
+  git fetch -q --no-tags --depth=1 --force --update-shallow
+fi
+git reset -q --hard origin/master
+unset GIT_DIR GIT_WORK_TREE
+
+# Install ZSH
+if [ ! -f "/usr/local/bin/zsh" ]
+  then
+  echo -e "${BLUE}==>${NC} Installing ZSH"
+  brew install zsh &> /dev/null
+fi
+
+CHECK_ZSH_IN_SHELLS=$(grep /usr/local/bin/zsh$ /etc/shells | wc -l)
+if [ ! $CHECK_ZSH_IN_SHELLS -ge 1 ]; then
+  echo -e "${BLUE}==>${NC} Adding ZSH to /etc/shells"
+  sudo echo "/usr/local/bin/zsh" >> /etc/shells
+fi
+unset CHECK_ZSH_IN_SHELLS
+
+if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
+  echo -e "${BLUE}==>${NC} Changing shell to ZSH"
+  chsh -s /usr/local/bin/zsh
+fi
