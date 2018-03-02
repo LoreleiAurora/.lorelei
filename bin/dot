@@ -81,3 +81,15 @@ if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
   echo -e "${BLUE}==>${NC} Changing shell to ZSH"
   chsh -s /usr/local/bin/zsh
 fi
+
+# Checkout or update dotfiles repo
+if [ ! -d "$HOME/.lorelei" ]
+then
+  echo -e "${BLUE}==>${NC} Cheching out .lorelei"
+  git clone -q --recurse-submodules https://github.com/LoreleiAurora/.lorelei.git "$HOME/.lorelei"
+else
+  echo -e "${BLUE}==>${NC} Updating .lorelei"
+  cd "$HOME/.lorelei"
+  git pull -q
+  git submodule update -q --init --recursive
+fi
