@@ -123,6 +123,7 @@ then
 fi
 echo -e "${BLUE}==>${NC} Setting default ruby version to 2.5.0"
 rbenv global 2.5.0
+gem install bundler
 
 # Install python
 if [ ! -d "${HOME}/.pyenv/versions/2.7.14" ]
