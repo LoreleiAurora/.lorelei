@@ -93,7 +93,7 @@ brew upgrade
 
 # Link dotfiles
 echo -e "${BLUE}==>${NC} Linking dotfiles"
-ln -s $DOTFILES/.zshrc $HOME/.zshrc
+ln -sf $DOTFILES/.zshrc $HOME/.zshrc
 
 # Setting up iterm2
 echo -e "${BLUE}==>${NC} Setting up iterm2"
@@ -136,5 +136,8 @@ fi
 pyenv global 3.6.4
 
 # Install virtualenv
-echo -e "${BLUE}==>${NC} Installing virtualenv"
-pip install virtualenv
+if [ ! -f "/usr/local/bin/virtualenv" ]
+then
+  echo -e "${BLUE}==>${NC} Installing virtualenv"
+  pip install virtualenv
+fi
