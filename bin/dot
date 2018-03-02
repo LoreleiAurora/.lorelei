@@ -95,6 +95,10 @@ brew upgrade
 echo -e "${BLUE}==>${NC} Linking dotfiles"
 ln -s $DOTFILES/.zshrc $HOME/.zshrc
 
+# Setting up iterm2
+echo -e "${BLUE}==>${NC} Setting up iterm2"
+defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "${DOTFILES}/iterm2"
+defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
 
 # Setup ZSH
 if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
