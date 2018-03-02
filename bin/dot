@@ -113,3 +113,7 @@ then
   rbenv install 2.5.0
 fi
 rbenv global 2.5.0
+
+# Install virtualenv
+echo -e "${BLUE}==>${NC} Installing virtualenv"
+pip install virtualenv
