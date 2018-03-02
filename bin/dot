@@ -143,6 +143,8 @@ then
 fi
 
 # Install node versions
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
 if `! nvm ls | grep -q lts/argon`
 then
   echo -e "${BLUE}==>${NC} Installing nodejs lts/argon"
