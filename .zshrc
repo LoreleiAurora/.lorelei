@@ -19,6 +19,10 @@ eval "$(rbenv init -)"
 # pyenv
 eval "$(pyenv init -)"
 
+# nvm
+export NVM_DIR="$HOME/.nvm"
+. "/usr/local/opt/nvm/nvm.sh"
+
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
