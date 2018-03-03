@@ -1,11 +1,8 @@
 # Dotfile paths.
 export DOTFILES=$HOME/.lorelei
+export DOTFILES_INC=$DOTFILES/inc
 export ZSH=$DOTFILES/oh-my-zsh
 export ZSH_CUSTOM=$DOTFILES/oh-my-zsh-custom
-
-# System Paths.
-export PATH=$HOME/bin:$DOTFILES/bin:/usr/local/bin:$PATH
-export MANPATH="/usr/local/man:$MANPATH"
 
 # Completions
 fpath=(/usr/local/share/zsh-completions $fpath)
@@ -13,21 +10,7 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 # Set ZSH theme
 ZSH_THEME="bullet-train"
 
-# plenv
-eval "$(plenv init -)"
-
-# rbenv
-eval "$(rbenv init -)"
-
-# pyenv
-eval "$(pyenv init -)"
-
-# nvm
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
-
-# goenv
-eval "$(goenv init -)"
+source $DOTFILES_INC/common.sh
 
 # oh-my-zsh
 DISABLE_AUTO_UPDATE="true"

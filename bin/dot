@@ -94,6 +94,8 @@ brew upgrade
 # Link dotfiles
 echo -e "${BLUE}==>${NC} Linking dotfiles"
 ln -sf $DOTFILES/.zshrc $HOME/.zshrc
+ln -sf $DOTFILES/.bashrc $HOME/.bashrc
+ln -sf $DOTFILES/.bash_profile $HOME/.bash_profile
 
 # Setting up iterm2
 echo -e "${BLUE}==>${NC} Setting up iterm2"
@@ -105,6 +107,8 @@ if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
   echo -e "${BLUE}==>${NC} Changing shell to ZSH"
   sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
 fi
+
+source $DOTFILES/inc/common.sh
 
 # Install perl
 if [ ! -d "${HOME}/.plenv/versions/5.27.9" ]
@@ -147,8 +151,6 @@ then
 fi
 
 # Install node versions
-export NVM_DIR="$HOME/.nvm"
-. "/usr/local/opt/nvm/nvm.sh"
 if `! nvm ls | grep -q lts/argon`
 then
   echo -e "${BLUE}==>${NC} Installing nodejs lts/argon"
