@@ -38,6 +38,7 @@ plugins=(
   bundler
   common-aliases
   composer
+  desk
   docker
   docker-compose
   gem
@@ -81,3 +82,6 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+# Hook for desk activation
+[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true
