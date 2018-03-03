@@ -191,3 +191,6 @@ brew-php-switcher 72 -s
 
 # init desk
 mkdir -p "$HOME/.desk/desks"
+
+# Disable the desktop
+defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder
