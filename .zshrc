@@ -50,6 +50,7 @@ plugins=(
   terraform
   thefuck
   vagrant
+  zsh-iterm-touchbar
 )
 
 source $ZSH/oh-my-zsh.sh
