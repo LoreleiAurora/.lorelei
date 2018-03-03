@@ -34,6 +34,7 @@ DISABLE_AUTO_UPDATE="true"
 HIST_STAMPS="dd/mm/yyyy"
 
 plugins=(
+  alias-tips
   brew
   bundler
   common-aliases
