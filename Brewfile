@@ -87,3 +87,6 @@ cask "virtualbox"
 cask "vlc"
 cask "zoomus"
 cask "caskroom/fonts/font-meslo-nerd-font"
+mas "Markdown Pro", id: 465965038
+mas "Speedtest", id: 1153157709
+mas "Xcode", id: 497799835
