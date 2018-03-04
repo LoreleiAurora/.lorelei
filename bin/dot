@@ -6,7 +6,9 @@ NC='\033[0m' # No Color
 SUDO_SET="false"
 
 # Dotfile paths.
-export DOTFILES=$HOME/.lorelei
+if [ -z "$DOTFILES" ]; then
+  export DOTFILES=$HOME/.lorelei
+fi
 
 set_sudo() {
   if [[ SUDO_SET != "true" ]]; then
@@ -42,33 +44,6 @@ if /usr/bin/xcrun clang 2>&1 | grep license; then
   sudo xcodebuild -license &> /dev/null
 fi
 
-# Running system updates
-echo -e "${BLUE}==>${NC} Running system updates"
-softwareupdate -i -a
-
-# Install Homebrew
-export GIT_DIR="/usr/local/Homebrew/.git" GIT_WORK_TREE="/usr/local/Homebrew"
-if [ -d "/usr/local/Homebrew" ]
-  then
-  git fetch -q
-else
-  set_sudo
-  echo -e "${BLUE}==>${NC} Installing Homebrew"
-  for DIR in Cellar Frameworks Homebrew bin etc include lib opt sbin share var
-    do
-    sudo mkdir -p "/usr/local/${DIR}"
-    sudo chown -R "$USER:admin" "/usr/local/${DIR}"
-  done
-  unset DIR
-  ln -sf /usr/local/Homebrew/bin/brew /usr/local/bin/brew
-  git init -q
-  git config remote.origin.url "https://github.com/Homebrew/brew"
-  git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
-  git fetch -q --no-tags --depth=1 --force --update-shallow
-fi
-git reset -q --hard origin/master
-unset GIT_DIR GIT_WORK_TREE
-
 # Checkout or update dotfiles repo
 if [ ! -d "$DOTFILES" ]
 then
@@ -81,98 +56,4 @@ else
   git submodule update -q --init --recursive
 fi
 
-# Install homebrew packages.
-echo -e "${BLUE}==>${NC} Installing packages with homebrew"
-pushd $DOTFILES &> /dev/null
-brew bundle
-popd
-
-# Updating homebrew packages.
-echo -e "${BLUE}==>${NC} Updating packages with homebrew"
-brew upgrade
-
-# Link dotfiles
-echo -e "${BLUE}==>${NC} Linking dotfiles"
-ln -sf $DOTFILES/.zshrc $HOME/.zshrc
-ln -sf $DOTFILES/.bashrc $HOME/.bashrc
-ln -sf $DOTFILES/.bash_profile $HOME/.bash_profile
-ln -sf $DOTFILES/.gitconfig ~/.gitconfig
-ln -sf $DOTFILES/.gitignore_global $HOME/.gitignore_global
-
-# Setting up iterm2
-echo -e "${BLUE}==>${NC} Setting up iterm2"
-defaults write com.googlecode.iterm2.plist PrefsCustomFolder -string "${DOTFILES}/iterm2"
-defaults write com.googlecode.iterm2.plist LoadPrefsFromCustomFolder -bool true
-
-# Setup ZSH
-if [ "$SHELL" != "/usr/local/bin/zsh" ]; then
-  echo -e "${BLUE}==>${NC} Changing shell to ZSH"
-  sudo dscl . -create /Users/$USER UserShell /usr/local/bin/zsh
-fi
-
-source $DOTFILES/inc/common.sh
-
-# Install ruby
-if [ ! -d "${HOME}/.rbenv/versions/2.5.0" ]
-then
-  echo -e "${BLUE}==>${NC} Installing ruby 2.5.0"
-  rbenv install 2.5.0
-fi
-echo -e "${BLUE}==>${NC} Setting default ruby version to 2.5.0"
-rbenv global 2.5.0
-gem install bundler
-
-# Install python
-if [ ! -d "${HOME}/.pyenv/versions/2.7.14" ]
-then
-  echo -e "${BLUE}==>${NC} Installing python 2.7.14"
-  pyenv install 2.7.14
-fi
-if [ ! -d "${HOME}/.pyenv/versions/3.6.4" ]
-then
-  echo -e "${BLUE}==>${NC} Installing python 3.6.4"
-  pyenv install 3.6.4
-fi
-echo -e "${BLUE}==>${NC} Setting default python version to 3.6.4"
-pyenv global 3.6.4
-
-# Install virtualenv
-if [ ! -f "/usr/local/bin/virtualenv" ]
-then
-  echo -e "${BLUE}==>${NC} Installing virtualenv"
-  pip install virtualenv
-fi
-
-# Install node versions
-if `! nvm ls | grep -q lts/argon`
-then
-  echo -e "${BLUE}==>${NC} Installing nodejs lts/argon"
-  nvm install lts/argon --latest-npm
-fi
-if `! nvm ls | grep -q lts/boron`
-then
-  echo -e "${BLUE}==>${NC} Installing nodejs lts/boron"
-  nvm install lts/boron --latest-npm
-fi
-if `! nvm ls | grep -q lts/carbon`
-then
-  echo -e "${BLUE}==>${NC} Installing nodejs lts/carbon"
-  nvm install lts/carbon --latest-npm
-fi
-if `! nvm ls | grep -q stable`
-then
-  echo -e "${BLUE}==>${NC} Installing nodejs stable"
-  nvm install stable --latest-npm
-fi
-echo -e "${BLUE}==>${NC} Setting default node version to stable"
-nvm alias default stable
-
-# Set PHP version
-echo -e "${BLUE}==>${NC} Setting default PHP version to 7.2"
-brew-php-switcher 72 -s
-
-# init desk
-mkdir -p "$HOME/.desk/desks"
-
-# Disable the desktop
-defaults write com.apple.finder CreateDesktop -bool FALSE;killall Finder
+source $DOTFILES/script/setup.sh
