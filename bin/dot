@@ -112,15 +112,6 @@ fi
 
 source $DOTFILES/inc/common.sh
 
-# Install perl
-if [ ! -d "${HOME}/.plenv/versions/5.27.9" ]
-then
-  echo -e "${BLUE}==>${NC} Installing perl 5.27.9"
-  plenv install 5.27.9 &> /dev/null
-fi
-echo -e "${BLUE}==>${NC} Setting default perl version to 5.27.9"
-plenv global  5.27.9
-
 # Install ruby
 if [ ! -d "${HOME}/.rbenv/versions/2.5.0" ]
 then
@@ -175,15 +166,6 @@ then
 fi
 echo -e "${BLUE}==>${NC} Setting default node version to stable"
 nvm alias default stable
-
-# Install go
-if [ ! -d "${HOME}/.goenv/versions/1.10.0" ]
-then
-  echo -e "${BLUE}==>${NC} Installing python 1.10.0"
-  goenv install 1.10.0
-fi
-echo -e "${BLUE}==>${NC} Setting default go version to 1.10.0"
-goenv global 1.10.0
 
 # Set PHP version
 echo -e "${BLUE}==>${NC} Setting default PHP version to 7.2"
