@@ -9,6 +9,11 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 autoload -U compinit
 compinit
 
+# Changing directory
+setopt auto_pushd
+setopt pushd_ignore_dups
+setopt pushdminus
+
 source $DOTFILES_INC/common.sh
 source $DOTFILES_INC/prompt.zsh
 
