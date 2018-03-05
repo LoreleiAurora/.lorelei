@@ -15,10 +15,3 @@ fi
 
 echo -e "${BLUE}==>${NC} Setting default python version to 3.6.4"
 pyenv global 3.6.4
-
-# Install virtualenv
-if [ ! -f "/usr/local/bin/virtualenv" ]
-then
-  echo -e "${BLUE}==>${NC} Installing virtualenv"
-  pip install virtualenv
-fi
