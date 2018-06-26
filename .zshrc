@@ -17,6 +17,3 @@ setopt pushdminus
 source $DOTFILES_INC/common.sh
 source $DOTFILES_INC/aliases.sh
 source $DOTFILES_INC/prompt.zsh
-
-# Hook for desk activation
-[ -n "$DESK_ENV" ] && source "$DESK_ENV" || true

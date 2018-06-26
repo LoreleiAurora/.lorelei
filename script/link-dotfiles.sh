@@ -7,3 +7,4 @@ ln -sf $DOTFILES/.bashrc $HOME/.bashrc
 ln -sf $DOTFILES/.bash_profile $HOME/.bash_profile
 ln -sf $DOTFILES/.gitconfig ~/.gitconfig
 ln -sf $DOTFILES/.gitignore_global $HOME/.gitignore_global
+ln -sf $DOTFILES/gpg.conf $HOME/.gnupg/gpg.conf

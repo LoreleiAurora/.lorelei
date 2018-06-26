@@ -182,10 +182,6 @@ build_prompt() {
   RETVAL=$?
   prompt_segment white black %D{%r}
   prompt_segment black default "${dir}%4(c:...:)%3c"
-  prompt_segment green black "⬡ $(nvm current 2>/dev/null)"
-  prompt_segment blue black "🐘  $(php -v | head -1 | sed 's/[^0-9.]*\([0-9.]*\).*/\1/')"
-  prompt_segment yellow black "🐍  $(pyenv version | sed -e 's/ (set.*$//' | tr '\n' ' ' | sed 's/.$//')"
-  prompt_segment red black "♦️  $(rbenv version | sed -e 's/ (set.*$//')"
   if $(git rev-parse --is-inside-work-tree >/dev/null 2>&1); then prompt_segment white black "$(git_prompt_info)$(git_prompt_status)"; fi
   [ $PROMPT_last_exec_duration -gt 5 ] && prompt_segment yellow black "$(displaytime $PROMPT_last_exec_duration)"
   prompt_status
